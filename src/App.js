@@ -13,6 +13,8 @@ import ChoosePage from './views/ChoosePage/ChoosePage';
 import EditarTutor from './views/EditarPerfilT/EditarTutor';
 import Vista2 from './views/VerPerfilT/Vista2'
 import Blog from './views/AddTutoria/AddTutoria'
+import AnuncioAlumno from './views/AnuncioAlumno/AnuncioAlumno'
+
 
 
  
@@ -54,8 +56,10 @@ class App extends Component {
     fetch("http://localhost/build/server/initSession.php",{
       method:'POST',
       headers:{
+       
         'Content-Type': 'application/x-www-form-urlencoded'
       },
+      credentials:'include',
       
       body: "email="+correo+"&tipo="+tipo
     })
@@ -92,7 +96,8 @@ class App extends Component {
          logg === 8 ? <Vista1 SetLog={this.SetLog}/> :
          logg === 9 ? <EditarTutor SetLog={this.SetLog}/> :
          logg === 10 ? <Vista2 SetLog={this.SetLog}/> : 
-         logg === 11 ? <Blog SetLog={this.SetLog}/> : null}
+         logg === 11 ? <Blog SetLog={this.SetLog}/> : 
+         logg === 12 ? <AnuncioAlumno  SetLog={this.SetLog}/> :null}
     
        
       </div>

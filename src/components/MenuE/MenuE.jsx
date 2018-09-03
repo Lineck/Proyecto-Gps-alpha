@@ -56,6 +56,7 @@ render(){
                 >
                   <MenuItem onClick={()=>{this.handleClose;this.props.SetLog(5)}}>Mi perfil</MenuItem>
                   <MenuItem onClick={()=>{this.handleClose;this.props.SetLog(6)}}>Editar perfil</MenuItem>
+                  <MenuItem onClick={()=>{this.handleClose;this.props.SetLog(12)}}>Anunciate</MenuItem>
                   <MenuItem onClick={()=>{this.handleClose;this.props.SetLog(7)}}>Eliminar perfil</MenuItem>
                   <MenuItem onClick={()=>this.props.cerrarSesion()}>Cerrar Sesion</MenuItem>
                 </Menu>
