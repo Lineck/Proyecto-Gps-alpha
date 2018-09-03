@@ -15,12 +15,23 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 //Core
 import Card from "components/Card/Card.jsx"
 import CardHeader from "components/Card/CardHeader.jsx"
+<<<<<<< HEAD
+=======
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import Header from "components/Header/Header.jsx";
+import MenuE from "../../components/MenuE/MenuE";
+>>>>>>> c5d64c5c1c681e435113b13541c5b8c56fc82033
 
 const styles = theme => ({
     root: {
       display: 'flex',
       flexWrap: 'wrap',
     },
+<<<<<<< HEAD
+=======
+    
+>>>>>>> c5d64c5c1c681e435113b13541c5b8c56fc82033
     formControl: {
       margin: theme.spacing.unit,
       fullWidth: true,
@@ -31,6 +42,33 @@ const styles = theme => ({
     },
   });
 
+<<<<<<< HEAD
+=======
+  const styless = {
+
+    list: {
+    
+        fontSize: "14px",
+        margin: 0,
+        paddingLeft: "0",
+        listStyle: "none",
+        paddingTop: "0",
+        paddingBottom: "0",
+       
+      },
+      listItem: {
+        float: "left",
+        color: "inherit",
+        position: "relative",
+        display: "block",
+        width: "auto",
+        margin: "0",
+        padding: "0",
+        
+      },
+  }
+
+>>>>>>> c5d64c5c1c681e435113b13541c5b8c56fc82033
 class AnuncioAlumno extends React.Component{
 
     constructor(){
@@ -126,16 +164,56 @@ class AnuncioAlumno extends React.Component{
         console.log(this.state)
         return(
             <div>
+<<<<<<< HEAD
+=======
+                <Header        
+        SetLog={this.props.SetLog}
+        color="transparent"
+        brand="Tutorias UBB"
+        fixed
+        rightLinks={
+          <List style={styless.list}>
+            <ListItem style={styless.listItem}>
+              <Button onClick={()=>this.props.SetLog(1)} style={{color:"#fff"}}>iniciar sesion</Button>
+            </ListItem>
+          <ListItem style={styless.listItem}>
+          <MenuE  SetLog={this.props.SetLog} cerrarSesion={this.props.cerrarSesion}/>   
+
+          
+             
+          </ListItem>
+         
+                </List>
+        }
+        
+        changeColorOnScroll={{
+          height: 400,
+          color: "primary"
+        }}
+
+        
+        
+      />
+
+>>>>>>> c5d64c5c1c681e435113b13541c5b8c56fc82033
                 <GridContainer justify="center">
                     <GridItem xs={12} sm={12} md={5}>
                         <br/><br/><br/><br/>
                         <Card>
                             <CardHeader color="primary" >   
                                 <h3>Nuevo aviso como alumno para solicitar clases particulares</h3>
+<<<<<<< HEAD
                             </CardHeader>
                             <GridContainer justify="center">
                                 <GridItem xs={12} sm={4} md={7} >
                                 <FormControl >
+=======
+                            </CardHeader> <br/><br/>
+                            <GridContainer justify="center">
+                           
+                                <GridItem xs={12} sm={4} md={7} >
+                                {/* <FormControl > */}
+>>>>>>> c5d64c5c1c681e435113b13541c5b8c56fc82033
                                     <InputLabel htmlFor="materia">Materia</InputLabel>
                                     <Select
                                         fullWidth = {true}
@@ -148,7 +226,11 @@ class AnuncioAlumno extends React.Component{
                                     >
                                     {(this.state.materias!=null)?this.BuildSelect():"Loading"}
                                     </Select>
+<<<<<<< HEAD
                                 </FormControl>
+=======
+                                {/* </FormControl> */}
+>>>>>>> c5d64c5c1c681e435113b13541c5b8c56fc82033
                                 </GridItem>
                             </GridContainer>
                             <GridContainer justify="center">
@@ -171,6 +253,10 @@ class AnuncioAlumno extends React.Component{
                             <GridContainer justify="center">
                                 <GridItem xs={12} sm={4} md={7} >
                                     <TextField
+<<<<<<< HEAD
+=======
+                                    fullWidth={true}
+>>>>>>> c5d64c5c1c681e435113b13541c5b8c56fc82033
                                         label="Descripcion"
                                         name="descripcion"
                                         multiline={true}

@@ -13,6 +13,8 @@ import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.js
 import MenuE from "../../components/MenuE/MenuE";
 import MenuT from "../../components/MenuT/MenuT";
 import { Button } from "@material-ui/core";
+import MuroAnuncioAlumno from '../MuroAnuncioAlumno/MuroAnuncioAlumno';
+import MuroClases from '../MuroClases/MuroClases';
 
 const styles = {
   list: {
@@ -60,7 +62,7 @@ class HomePage extends React.Component{
             </ListItem>
           <ListItem style={styles.listItem}>
           {this.props.tipo==='UE'?<MenuE  SetLog={this.props.SetLog} cerrarSesion={this.props.cerrarSesion}/>:
-           this.props.tipo==='UT'? <MenuT SetLog={this.props.SetLog} cerrarSesion={this.props.cerrarSesion}/>:""    
+           this.props.tipo==='UT'? <MenuT SetLog={this.props.SetLog} cerrarSesion={this.props.cerrarSesion}/>:null    
 
           }
              
@@ -95,7 +97,11 @@ class HomePage extends React.Component{
       <div className={classNames(classes.main, classes.mainRaised)}>
       <br/>
       <GridContainer justify="center">
-        
+        {this.props.tipo==='UE'?<MuroAnuncioAlumno/>:
+        this.props.tipo==='UT'?<MuroClases/>:<MuroAnuncioAlumno/>
+
+
+        }
         
         </GridContainer><br/><br/>
           </div>
