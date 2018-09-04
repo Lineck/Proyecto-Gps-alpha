@@ -1,10 +1,21 @@
 import React from "react";
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import withStyles from "@material-ui/core/styles/withStyles";
 import InfoOutline from "@material-ui/icons/InfoOutline";
-import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import IconButton from '@material-ui/core/IconButton';
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import purple from "@material-ui/core/colors/purple"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import CloseIcon from '@material-ui/icons/Close';
+import green from '@material-ui/core/colors/green';
+import amber from '@material-ui/core/colors/amber';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ErrorIcon from '@material-ui/icons/Error';
+import InfoIcon from '@material-ui/icons/Info';
+import WarningIcon from '@material-ui/icons/Warning';
 
 import Button from '@material-ui/core/Button';
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -21,7 +32,37 @@ import Card from "components/Card/Card.jsx"
 import CardHeader from "components/Card/CardHeader.jsx"
 import InputLabel from "@material-ui/core/InputLabel"
 
-
+const variantIcon = {
+  success: CheckCircleIcon,
+  warning: WarningIcon,
+  error: ErrorIcon,
+  info: InfoIcon,
+};
+const styles1 = theme => ({
+  success: {
+    backgroundColor: green[600],
+  },
+  error: {
+    backgroundColor: theme.palette.error.dark,
+  },
+  info: {
+    backgroundColor: theme.palette.primary.dark,
+  },
+  warning: {
+    backgroundColor: amber[700],
+  },
+  icon: {
+    fontSize: 20,
+  },
+  iconVariant: {
+    opacity: 0.9,
+    marginRight: theme.spacing.unit,
+  },
+  message: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+});
 const styles = {
   root: {
     flexGrow: 1,
@@ -58,6 +99,45 @@ const theme = createMuiTheme({
   },
 });
 
+function MySnackbarContent  (props)  {
+  const { classes, className, message, onClose, variant, ...other } = props;
+  const Icon = variantIcon[variant];
+
+  return (
+    <SnackbarContent
+      className={classNames(classes[variant], className)}
+      aria-describedby="client-snackbar"
+      message={
+        <span id="client-snackbar" className={classes.message}>
+          <Icon className={classNames(classes.icon, classes.iconVariant)} />
+          {message}
+        </span>
+      }
+      action={[
+        <IconButton
+          key="close"
+          aria-label="Close"
+          color="inherit"
+          className={classes.close}
+          onClick={onClose}
+        >
+          <CloseIcon className={classes.icon} />
+        </IconButton>,
+      ]}
+      {...other}
+    />
+  );
+}
+
+MySnackbarContent.propTypes = {
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  message: PropTypes.node,
+  onClose: PropTypes.func,
+  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
+};
+const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
+
 
 class RegistroPage extends React.Component {
 
@@ -75,7 +155,9 @@ class RegistroPage extends React.Component {
           contrasenia:'',
           contrasenia_error:'',
           localidad:'Concepcion',
-          localidad_error:''
+          localidad_error:'',
+          open: false,
+          open2:false,
     
         }
         this.validar2=this.validar2.bind(this);        
@@ -166,6 +248,9 @@ class RegistroPage extends React.Component {
         return flag;
     }
 
+    
+
+
     handleChange(e) {
       this.setState({[e.target.name]: e.target.value})
     }
@@ -214,6 +299,19 @@ class RegistroPage extends React.Component {
         }
       })     
     }
+    handleClose2 = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      this.setState({ open2: false });
+    }
+    handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      this.setState({ open: false });
+    };
     validarcorreo(){
  
       fetch("http://localhost/build/server/checkCorreo.php",{
@@ -239,6 +337,7 @@ class RegistroPage extends React.Component {
 
   render() {
     const { classes } = this.props;
+ 
   return (
     <div >      
           <HeaderGps SetLog={this.props.SetLog}/>      
@@ -403,17 +502,36 @@ class RegistroPage extends React.Component {
         </GridItem >  
        </GridContainer>
         </ MuiThemeProvider>
-       <SnackbarContent
-              message={
-                  <span>
-                    <b>ALERTA DE INFORMACION:</b> Porfavor llene todos los campos
-                  </span>
-              }
-              close={true}
-              color="warning"
-              icon={InfoOutline}
-              />
-        
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.open}
+          autoHideDuration={6000}
+          onClose={this.handleClose}
+        >
+          <MySnackbarContentWrapper
+            onClose={this.handleClose}
+            variant="warning"
+            message="This is a success message!"
+          />
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.open2}
+          autoHideDuration={6000}
+          onClose={this.handleClose2}
+        >
+          <MySnackbarContentWrapper
+            onClose={this.handleClose2}
+            variant="success"
+            message="This is a success message!"
+          />
+        </Snackbar>
       <br/><br/> <br/><br/>
       
       <Footer />
