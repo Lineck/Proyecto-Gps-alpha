@@ -52,6 +52,7 @@ class AnuncioAlumno extends React.Component{
     };
 
     componentDidMount(){
+        console.log(this.props)
         this.LoadData()
     }
 
@@ -91,7 +92,7 @@ class AnuncioAlumno extends React.Component{
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: 'cmd=Insertar'+
-                '&rutEstudiante=19.121.841-8'+
+                '&correo='+this.props.correo+
                 '&materia='+this.state.materia+
                 '&titulo='+this.state.titulo+
                 '&descripcion='+this.state.descripcion+
@@ -135,7 +136,6 @@ class AnuncioAlumno extends React.Component{
                             </CardHeader>
                             <GridContainer justify="center">
                                 <GridItem xs={12} sm={4} md={7} >
-                                <FormControl >
                                     <InputLabel htmlFor="materia">Materia</InputLabel>
                                     <Select
                                         fullWidth = {true}
@@ -148,7 +148,6 @@ class AnuncioAlumno extends React.Component{
                                     >
                                     {(this.state.materias!=null)?this.BuildSelect():"Loading"}
                                     </Select>
-                                </FormControl>
                                 </GridItem>
                             </GridContainer>
                             <GridContainer justify="center">
