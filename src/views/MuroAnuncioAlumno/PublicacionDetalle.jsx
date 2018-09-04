@@ -48,7 +48,7 @@ class PublicacionDetalle extends React.Component{
 
         if(this.state.publicacion != null){
             vista = <GridContainer justify="center">
-                <GridItem xs={12} sm={12} md={12}>
+                <GridItem xs={12} sm={12} md={9}>
                     <Card>
                         <GridContainer justify="center">
                             <GridItem xs={12} sm={12} md={9}>
@@ -72,6 +72,8 @@ class PublicacionDetalle extends React.Component{
                                                 <h3>{this.state.publicacion.titulo}</h3>
                                             </GridItem>
                                         </GridContainer>
+                                        <br/>
+                                        <p><i>{this.state.publicacion.NombreE} {this.state.publicacion.ApellidoE}</i></p>
                                         <br/>
                                         <p><b>Busco profesor de:</b> {this.state.publicacion.materia}</p>
                                         <br/>

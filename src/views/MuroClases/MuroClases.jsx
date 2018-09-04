@@ -95,7 +95,7 @@ class MuroClases extends React.Component{
         var vista;
 
         var muro = <GridContainer justify="center">
-                        <GridItem xs={12} sm={12} md={7}>
+                        <GridItem xs={12} sm={12} md={12}>
                             <Card>
                                 <GridContainer justify="center">
                                     <GridItem xs={12} sm={12} md={9}>

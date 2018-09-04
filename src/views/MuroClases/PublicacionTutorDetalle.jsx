@@ -108,6 +108,8 @@ class PublicacionTutorDetalle extends React.Component{
                                             </GridItem>
                                         </GridContainer>
                                         <br/>
+                                        <p><i>Tutor: {this.state.publicacion.NombreT} {this.state.publicacion.ApellidoT}</i></p>
+                                        <br/>
                                         <p><b>Imparto clases de:</b> {this.state.publicacion.Materia}</p>
                                         <br/>
                                         <hr/>
@@ -115,9 +117,9 @@ class PublicacionTutorDetalle extends React.Component{
                                         <p>{this.state.publicacion.Descripcion}</p>
                                         <hr/>
                                         <h4>Informacion de contacto</h4>
-                                        <p><b>Fono:</b> {this.state.publicacion.TelefonoT}</p>
-                                        <p><b>Ciudad:</b> {this.state.publicacion.LocalidadT}</p>
-                                        <p><b>Email:</b> {this.state.publicacion.email}</p>
+                                        <p><b>Fono:</b> {this.state.publicacion.Telefono}</p>
+                                        <p><b>Ciudad:</b> {this.state.publicacion.ubicacion}</p>
+                                        <p><b>Email:</b> {this.state.publicacion.EmailT}</p>
                                         <GridContainer justify="flex-end">
                                             <GridItem xs={12} sm={12} md={12}>
                                                 <Button 

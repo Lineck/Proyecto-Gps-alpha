@@ -97,7 +97,7 @@ class App extends Component {
          logg === 9 ? <EditarTutor email={this.state.correo} SetLog={this.SetLog}/> :
          logg === 10 ? <Vista2 email={this.state.correo} SetLog={this.SetLog}/> : 
          logg === 11 ? <Blog SetLog={this.SetLog}/> : 
-         logg === 12 ? <AnuncioAlumno  SetLog={this.SetLog}/> :null}
+         logg === 12 ? <AnuncioAlumno correo={this.state.correo} SetLog={this.SetLog}/> :null}
     
        
       </div>
