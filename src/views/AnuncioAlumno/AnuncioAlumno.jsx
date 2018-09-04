@@ -11,6 +11,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
+import purple from "@material-ui/core/colors/purple"
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 //Core
 import Card from "components/Card/Card.jsx"
@@ -19,6 +21,14 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Header from "components/Header/Header.jsx";
 import MenuE from "../../components/MenuE/MenuE";
+
+const theme = createMuiTheme({
+    palette: {
+      primary: purple,
+      
+    },
+  });
+
 
 const styles = theme => ({
     root: {
@@ -183,7 +193,7 @@ class AnuncioAlumno extends React.Component{
         
         
       />
-
+                 <MuiThemeProvider theme={theme}>
                 <GridContainer justify="center">
                     <GridItem xs={12} sm={12} md={5}>
                         <br/><br/><br/><br/>
@@ -306,7 +316,7 @@ class AnuncioAlumno extends React.Component{
                     </GridItem>
                 </GridContainer>
                 
-
+                </MuiThemeProvider>                             
             </div>
         )
     }

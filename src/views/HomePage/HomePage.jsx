@@ -15,6 +15,7 @@ import MenuT from "../../components/MenuT/MenuT";
 import { Button } from "@material-ui/core";
 import MuroAnuncioAlumno from '../MuroAnuncioAlumno/MuroAnuncioAlumno';
 import MuroClases from '../MuroClases/MuroClases';
+import About from '../About/About';
 
 const styles = {
   list: {
@@ -97,8 +98,11 @@ class HomePage extends React.Component{
       <div className={classNames(classes.main, classes.mainRaised)}>
       <br/>
       <GridContainer justify="center">
-        {this.props.tipo==='UE'?<MuroAnuncioAlumno/>:
-        this.props.tipo==='UT'?<MuroClases/>:<MuroAnuncioAlumno/>
+        <br/>
+        <About/>
+      <br/><br/>
+        {this.props.tipo==='UE'?<MuroClases/>:
+        this.props.tipo==='UT'?<MuroAnuncioAlumno/>:<MuroClases/>
 
 
         }

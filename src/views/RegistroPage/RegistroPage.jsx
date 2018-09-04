@@ -171,22 +171,30 @@ class RegistroPage extends React.Component {
     }
 
     registrar(){
+      this.validar();
+      this.validarcorreo();
+      if(this.state.correo_error==='' && this.state.rut_error===''){
+        if(this.validar2()===true){  
+          fetch("http://localhost/build/server/registro.php",{
+            // fetch("../../server/registro.php",{
+            method:"POST",
+            headers:{
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: "rut="+this.state.rut+"&nombre="+this.state.nombre+"&apellido="+this.state.apellido+"&email="+this.state.correo+"&contrasenia="+this.state.contrasenia+"&localidad="+this.state.localidad
+          })
+          .then(()=>{
+            this.props.SetLog(2); 
+          })
+        
+        }
+      
+      }
  
-      fetch("http://localhost/build/server/registro.php",{
-        // fetch("../../server/registro.php",{
-        method:"POST",
-        headers:{
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: "rut="+this.state.rut+"&nombre="+this.state.nombre+"&apellido="+this.state.apellido+"&email="+this.state.correo+"&contrasenia="+this.state.contrasenia+"&localidad="+this.state.localidad
-      })
-      .then(()=>{
-        this.props.SetLog(1); 
-      })
     }
 
     validar(){
- 
+     
     fetch("http://localhost/build/server/checkrut.php",{
       // fetch("../../server/checkrut.php",{
         method:"POST",
@@ -202,12 +210,31 @@ class RegistroPage extends React.Component {
         if(text==="false"){          
           this.setState({rut_error:'Rut Existente'});
         }else{       
-          if(this.validar2()===true){                    
-            this.registrar(); 
-          }
+          
         }
       })     
     }
+    validarcorreo(){
+ 
+      fetch("http://localhost/build/server/checkCorreo.php",{
+        // fetch("../../server/checkCorreo.php",{
+          method:"POST",
+          headers:{
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: "correo="+this.state.correo
+        })
+        .then((result)=>{
+          return result.text();        
+        })
+        .then((text)=>{
+          if(text==="false"){          
+            this.setState({correo_error:'Correo Existente'});
+          }else{       
+           
+          }
+        })     
+      }
 
 
   render() {
@@ -364,7 +391,7 @@ class RegistroPage extends React.Component {
               </GridContainer> 
               <GridContainer justify="center">
                    
-                  <Button style={{width: '40vh',height:'5vh'}} variant="contained" size="large" color="primary" onClick={()=>this.validar()} >REGISTRAR</Button>
+                  <Button style={{width: '40vh',height:'5vh'}} variant="contained" size="large" color="primary" onClick={()=>this.registrar()} >REGISTRAR</Button>
               
               </GridContainer>
             

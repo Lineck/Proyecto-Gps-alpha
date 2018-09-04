@@ -12,6 +12,8 @@ import Button from '@material-ui/core/Button';
 import Publicacion from './Publicacion';
 import PublicacionDetalle from './PublicacionDetalle';
 
+
+
 class MuroAnuncioAlumno extends React.Component{
     constructor(){
         super()
@@ -115,7 +117,9 @@ class MuroAnuncioAlumno extends React.Component{
     render(){
         return(
             <div>
-                {this.controladorVista()}
+               
+                    {this.controladorVista()}
+               
             </div>
         )
     }
