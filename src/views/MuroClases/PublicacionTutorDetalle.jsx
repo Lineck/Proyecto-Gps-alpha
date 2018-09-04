@@ -62,20 +62,29 @@ class PublicacionTutorDetalle extends React.Component{
     }
 
     Registrar(){
-        fetch("http://localhost/build/server/cesarScripts/InscripcionControlador.php",{
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            credentials: 'include',
-            body: 'cmd=Insertar&idClase='+this.state.idClase
-        })
-        .then((response)=>{
-            return response.text()
-        })
-        .then((text)=>{
-            console.log(text)
-        })
+        if(this.props.correo==''){
+            alert('Por favor inicie sesion')
+        }else{
+            fetch("http://localhost/build/server/cesarScripts/InscripcionControlador.php",{
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                credentials: 'include',
+                body: 'cmd=Insertar&idClase='+this.state.publicacion.idClase+'&correo='+this.props.correo
+            })
+            .then((response)=>{
+                return response.text()
+            })
+            .then((text)=>{
+                if(text=="1"){
+                    alert("Inscripcion Exitosa");
+                }else{
+                    alert('Ya se encuentra inscrito en la clase')
+                }
+                console.log(text)
+            })
+        }
     }
 
     vistaHandler(){

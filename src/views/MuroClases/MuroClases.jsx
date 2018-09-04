@@ -108,7 +108,7 @@ class MuroClases extends React.Component{
                         </GridItem>
                     </GridContainer>
 
-        this.state.vista==0 ? vista = muro : vista = <PublicacionTutorDetalle idClase={this.state.prop} volverMuro={this.volverMuro}/>
+        this.state.vista==0 ? vista = muro : vista = <PublicacionTutorDetalle correo={this.props.correo} idClase={this.state.prop} volverMuro={this.volverMuro}/>
 
         return vista;
     }

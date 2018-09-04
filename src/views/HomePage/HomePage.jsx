@@ -101,8 +101,8 @@ class HomePage extends React.Component{
         <br/>
         <About/>
       <br/><br/>
-        {this.props.tipo==='UE'?<MuroClases/>:
-        this.props.tipo==='UT'?<MuroAnuncioAlumno/>:<MuroClases/>
+        {this.props.tipo==='UE'?<MuroClases correo={this.props.correo}/>:
+        this.props.tipo==='UT'?<MuroAnuncioAlumno/>:<MuroClases correo={this.props.correo}/>
 
 
         }

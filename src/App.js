@@ -83,6 +83,7 @@ class App extends Component {
     
       { logg === 0? <HomePage SetLog={this.SetLog}
                               tipo={this.state.tipo}
+                              correo={this.state.correo}
                               cerrarSesion={this.cerrarSesion}
                                          /> :
           logg === 1? <LoginPage IniciarSesion={this.IniciarSesion}
