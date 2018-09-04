@@ -94,9 +94,9 @@ const styles = {
         error_disponibilidad: '',
         error_disponibilidad_d: '',
         error_ubicacion: '',
-        emailT:'prueba',
+        emailT:'',
       };
-  
+      this.state.emailT=this.props.email;
   
       this.handleSubmit = this.handleSubmit.bind(this);
     }

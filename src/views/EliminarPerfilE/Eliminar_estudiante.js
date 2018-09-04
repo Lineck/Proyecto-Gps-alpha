@@ -69,9 +69,10 @@ class Eliminar_estudiante extends Component  {
       tablaTelefono: 'placeholder',
       tablaUbicacion: 'placeholder',
       tablaFoto: '',
-      EmailE:'prueba2',
+      EmailE:'',
 
     };
+    this.state.EmailE=this.props.email;
 
     
    

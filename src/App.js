@@ -90,12 +90,12 @@ class App extends Component {
          logg === 2? <Validacion SetLog={this.SetLog}/> :
          logg === 3? <ChoosePage SetLog={this.SetLog}/> :
          logg === 4? <RegistroPage SetLog={this.SetLog}/> :
-         logg === 5 ? <Guardar_estudiante SetLog={this.SetLog}/> :
-         logg === 6 ? <Editar_Estudiante SetLog={this.SetLog}/> :
-         logg === 7 ? <Eliminar_estudiante SetLog={this.SetLog}/>: 
-         logg === 8 ? <Vista1 SetLog={this.SetLog}/> :
-         logg === 9 ? <EditarTutor SetLog={this.SetLog}/> :
-         logg === 10 ? <Vista2 SetLog={this.SetLog}/> : 
+         logg === 5 ? <Guardar_estudiante email={this.state.correo} SetLog={this.SetLog}/> :
+         logg === 6 ? <Editar_Estudiante email={this.state.correo} SetLog={this.SetLog}/> :
+         logg === 7 ? <Eliminar_estudiante email={this.state.correo} SetLog={this.SetLog}/>: 
+         logg === 8 ? <Vista1 email={this.state.correo} SetLog={this.SetLog}/> :
+         logg === 9 ? <EditarTutor email={this.state.correo} SetLog={this.SetLog}/> :
+         logg === 10 ? <Vista2 email={this.state.correo} SetLog={this.SetLog}/> : 
          logg === 11 ? <Blog SetLog={this.SetLog}/> : 
          logg === 12 ? <AnuncioAlumno  SetLog={this.SetLog}/> :null}
     

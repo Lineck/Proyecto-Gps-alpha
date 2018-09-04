@@ -98,8 +98,9 @@ class guardar_estudiante extends Component {
       error_disponibilidad: '',
       error_disponibilidad_d: '',
       error_ubicacion: '',
-      email:'prueba',
+      email:'',
     };
+    this.state.email=this.props.email;
 
 
     this.handleSubmit = this.handleSubmit.bind(this);

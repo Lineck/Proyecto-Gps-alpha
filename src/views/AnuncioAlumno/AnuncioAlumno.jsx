@@ -13,6 +13,10 @@ import GridItem from "components/Grid/GridItem.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import purple from "@material-ui/core/colors/purple"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import Header from "components/Header/Header.jsx";
+import MenuE from "../../components/MenuE/MenuE";
 
 //Core
 import Card from "components/Card/Card.jsx"
@@ -40,6 +44,28 @@ const styles = theme => ({
       marginTop: theme.spacing.unit * 2,
     },
   });
+  const styless ={
+    list: {
+    
+        fontSize: "14px",
+        margin: 0,
+        paddingLeft: "0",
+        listStyle: "none",
+        paddingTop: "0",
+        paddingBottom: "0",
+       
+      },
+      listItem: {
+        float: "left",
+        color: "inherit",
+        position: "relative",
+        display: "block",
+        width: "auto",
+        margin: "0",
+        padding: "0",
+        
+      },
+  }
 
 class AnuncioAlumno extends React.Component{
 
@@ -136,7 +162,6 @@ class AnuncioAlumno extends React.Component{
         console.log(this.state)
         return(
             <div>
-<<<<<<< HEAD
                 <Header        
         SetLog={this.props.SetLog}
         color="transparent"
@@ -166,8 +191,6 @@ class AnuncioAlumno extends React.Component{
         
       />
                  <MuiThemeProvider theme={theme}>
-=======
->>>>>>> d6de980f9594cf0b60a5a2eb4db2f11524052f86
                 <GridContainer justify="center">
                     <GridItem xs={12} sm={12} md={5}>
                         <br/><br/><br/><br/>

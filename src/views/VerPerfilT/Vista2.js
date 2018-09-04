@@ -98,11 +98,11 @@ class Vista2 extends Component  {
       tablaMetodo: 'placeholder',
       tablaUbicacion: 'placeholder',
       tablaFoto: '',
-      emailT:'prueba',
+      emailT:'',
 
     };
 
-    
+   this.state.emailT= this.props.email;
    
   }
 

@@ -88,9 +88,9 @@ const styles = {
         error_apellido: '',
         error_fono: '',
         error_ubicacion: '',
-        EmailE: 'prueba'
+        EmailE: ''
       };
-  
+      this.state.EmailE=this.props.email;
   
       this.handleSubmit = this.handleSubmit.bind(this);
     }
