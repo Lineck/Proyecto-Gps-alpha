@@ -40,7 +40,7 @@ class Blog extends Component {
       materia:"",
       titulo:"",
       descripcion:"",
-      rut:"",
+      correo:"",
       date:"",
       showStore:false
     }
@@ -55,7 +55,7 @@ class Blog extends Component {
       materia:"",
       titulo:"",
       descripcion:"",
-      rut:"",
+      correo:"",
       date:"",
       showStore:"true"
     });
@@ -84,7 +84,7 @@ class Blog extends Component {
       console.log("LLena los campos porfavor");
       document.getElementsByClassName("error")[2].style.display="Block";
     }
-    if (this.state.rut === "")  {
+    if (this.state.correo === "")  {
       console.log("LLena los campos porfavor");
       document.getElementsByClassName("error")[3].style.display="Block";
     }if (this.state.date === "")  {
@@ -93,10 +93,10 @@ class Blog extends Component {
     }
 
 
-  if (this.state.materia !== "" && this.state.titulo !== "" && this.state.descripcion !== ""&& this.state.rut !== ""&& this.state.date !== "") {
+  if (this.state.materia !== "" && this.state.titulo !== "" && this.state.descripcion !== ""&& this.state.correo !== ""&& this.state.date !== "") {
 
 
-    fetch('http://146.83.198.35/~grupocold/Parte_Lucas/server/insert.php', {
+    fetch('http://localhost/build/server/lucas/insert.php', {
 
           method:'POST',
           headers: {
@@ -106,7 +106,7 @@ class Blog extends Component {
             'Content-type':'application/json'
           },
           mode: 'no-cors',  //consultar
-          body:JSON.stringify({Materia:this.state.materia, Titulo:this.state.titulo, Descripcion:this.state.descripcion, fecha:this.state.date,  RutT:this.state.rut})
+          body:JSON.stringify({Materia:this.state.materia, Titulo:this.state.titulo, Descripcion:this.state.descripcion, correo:this.state.correo,  fecha:this.state.date})
 
         })
         .then(function() {
@@ -179,15 +179,15 @@ class Blog extends Component {
           <input name="titulo" id="titulo" type="text" value={this.state.titulo} onChange={this.handleChange.bind(this)} />
           <label htmlFor="descripcion"> Descripcion</label> <span className="error" > *debes agregar una descripcion </span>
           <textarea name="descripcion" id="descripcion" type="text" value={this.state.descripcion} onChange={this.handleChange.bind(this)} />
-          <label htmlFor="rut"> Rut</label> <span className="error" > *debes agregar tu rut </span>
-          <input name="rut" id="rut" type="number" value={this.state.rut} onChange={this.handleChange.bind(this)} />
+          <label htmlFor="correo"> correo</label> <span className="error" > *debes agregar tu correo </span>
+          <input name="correo" id="correo" type="text" value={this.state.correo} onChange={this.handleChange.bind(this)} />
           <label htmlFor="date"> Fecha</label> <span className="error" > *debes agregar la fecha de inicio </span>
           <input name="date" id="date" type="date" value={this.state.date} onChange={this.handleChange.bind(this)} />
           <input type="submit" name="button" value="Agregar" onClick={this.insertClase.bind(this)}/>
 
           <div className="success" style={{display: this.state.showStore ? 'block' : 'none' }}> Su clase ha sido publicada exitosamente </div>
 
-          {JSON.stringify(this.state)}
+          
 
 
 

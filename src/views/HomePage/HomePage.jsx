@@ -84,10 +84,7 @@ class HomePage extends React.Component{
             <GridItem xs={12} sm={12} md={6}>
               <h1 className={classes.title} >Tu Historia Comienza con nosotros.</h1>
               <h4>
-                Every landing page needs a small description after the big
-                bold title, that's why we added this text here. Add here all
-                the information that can make you or your product create the
-                first impression.
+                Bienvenido a la plataforma lider en aprendisaje online.
               </h4>
               <br />
               
@@ -98,9 +95,7 @@ class HomePage extends React.Component{
       <div className={classNames(classes.main, classes.mainRaised)}>
       <br/>
       <GridContainer justify="center">
-        <br/>
-        <About/>
-      <br/><br/>
+        
         {this.props.tipo==='UE'?<MuroClases correo={this.props.correo}/>:
         this.props.tipo==='UT'?<MuroAnuncioAlumno/>:<MuroClases correo={this.props.correo}/>
 

@@ -388,7 +388,7 @@ class RegistroPage extends React.Component {
                     
                   }}
                   inputProps={{
-                   
+                    
                     name:"apellido",
                     onChange:(e) => this.handleChange(e)
                   }}
@@ -405,11 +405,12 @@ class RegistroPage extends React.Component {
                     error={this.state.rut_error === ''? false : true}
                   
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
+                     
                       
                     }}
                     inputProps={{
-                    
+                     type:'number',
                       name:"rut",
                       onChange:(e) => this.handleChange(e)
                     }}

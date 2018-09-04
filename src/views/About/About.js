@@ -2,49 +2,35 @@ import React, { Component } from 'react';
 
 
 
-const clases = [
-  {
-    id:1,
-    materia:"Quimika",
-    titulo:"quimixa 1",
-    descripcion:"clasede quimica",
-    rut:"191094123",
-    date:"131231",
-  },
-  {
-    id:1,
-    materia:"matematicas",
-    titulo:"matematicas 1",
-    descripcion:"clasede matematicas",
-    rut:"191094123",
-    date:"131231",
-  },
-  {
-    id:1,
-    materia:"edo",
-    titulo:"edo 1",
-    descripcion:"clasede edo",
-    rut:"191094123",
-    date:"131231",
-  }
-]
+var clases = [{"idClase":"1","materia":"Calculo IV","titulo":"Imparto Clase de calculo IV","descripcion":" Quis aute iure reprehenderit in voluptate.","correoT":"lucas@alumnos.ubiobio.cl","fecha":"0000-00-00"},
+{"idClase":"2","materia":"Programacion","titulo":"Imparto clases de PHP","descripcion":" qui officia deserunt mollit anim id est laborum.","correoT":"lucas@alumnos.ubiobio.cl","fecha":"0000-00-00"}]
 
 
 class About extends Component {
 constructor(props){
+
+
+
   super(props);
 
+
+
   this.state = {
-    clases:clases,
+    clases:'',
     term:''
   }
+
+
+  this.cualquiera();
   this.searchHandler = this.searchHandler.bind(this);
-  this.searchingFor = this.searchingFor .bind(this);
+  this.searchingFor = this.searchingFor.bind(this);
+  this.cualquiera = this.cualquiera.bind(this);
+
 }
 
   searchingFor(term){
     return function(x){
-      return x.titulo.toLowerCase().includes(term.toLowerCase()) ||  x.materia.toLowerCase().includes(term.toLowerCase()) ||  x.descripcion.toLowerCase().includes(term.toLowerCase()) ||  x.rut.toLowerCase().includes(term.toLowerCase()) || !term;
+      return x.titulo.toLowerCase().includes(term.toLowerCase()) ||  x.materia.toLowerCase().includes(term.toLowerCase()) ||  x.descripcion.toLowerCase().includes(term.toLowerCase()) || !term;
     }
   }
 
@@ -52,6 +38,23 @@ constructor(props){
     this.setState({
       term:event.target.value
     })
+  }
+
+
+
+
+  cualquiera() {
+
+    fetch('http://localhost/build/server/lucas/select.php')
+    .then(function(response) {
+      return response.json()
+    })
+    .then((responseJSON)=>{
+        
+         
+           this.state.clases=responseJSON
+          
+      })
   }
 
 
@@ -65,19 +68,32 @@ constructor(props){
         <input type="text" name="firstname" onChange={this.searchHandler} value={this.state.term}/>
       </form>
 
-
+  
       {
-        clases.filter(this.searchingFor(this.state.term)).map((clase)=>{
-          return(
-            <div key={clase.id}>
-              <h3>{clase.materia}</h3>
-              <h3>{clase.titulo}</h3>
-              <h3>{clase.descripcion}</h3>
-              <h3>{clase.rut}</h3>
-              <h4>{clase.date}</h4>
+        
+        
+        this.setState({
+          clases:
+          this.state.clases.filter(this.searchingFor(this.state.term)).map((clase)=>{
+            return(
+              <div key={clase.idClase}>
+
+              materia:
+              {clase.materia} <br/>
+              titulo:
+              {clase.titulo} <br/>
+              descripcion:
+              {clase.descripcion}<br/>
+              correoT: 
+              {clase.correoT}<br/>
+              fecha:
+              {clase.date} <br/>
+              __________
+
             </div>
           )
         })
+      })
       }
 
 
