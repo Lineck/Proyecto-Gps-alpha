@@ -76,11 +76,11 @@ const styles = {
 class Vista2 extends Component  {
 
   eliminarTutor(){
+    var data = new FormData()
+    data.append('EmailE',this.state.EmailE)
     fetch("http://localhost/borrar_tutor.php", {
       method: 'POST',
-          headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-          },
+      body: data 
     })
   }
 
@@ -98,6 +98,7 @@ class Vista2 extends Component  {
       tablaMetodo: 'placeholder',
       tablaUbicacion: 'placeholder',
       tablaFoto: '',
+      emailT:'prueba',
 
     };
 
@@ -106,21 +107,27 @@ class Vista2 extends Component  {
   }
 
   componentDidMount(){
-    fetch("http://localhost/leer_tutor.php")
+    var data = new FormData()
+    data.append('EmailT',this.state.emailT)
+    fetch("http://localhost/leer_tutor.php",{
+    method: "POST",
+    body: data
+    }
+    )
     .then((response => {
       return response.json()
     }))
     .then( tutor => {
-      this.setState({tablaNombre:tutor[0].Nombre})
-      this.setState({tablaApellido:tutor[0].Apellido})
-      this.setState({tablaDisponibilidad:tutor[0].Disponibilidad})
-      this.setState({tablaUbicacion:tutor[0].Ubicacion})
+      this.setState({tablaNombre:tutor[0].nombreT})
+      this.setState({tablaApellido:tutor[0].ApellidoT})
+      this.setState({tablaDisponibilidad:tutor[0].DisponibilidadInicio})
+      this.setState({tablaUbicacion:tutor[0].ubicacion})
       this.setState({tablaTelefono:tutor[0].Telefono})
       this.setState({tablaMetodo:tutor[0].Metodo})
-      this.setState({tablaEspecialidad:tutor[0].Materia})
-      this.setState({tablaFoto:tutor[0].foto_perfil})
-      this.setState({tablaDisponibilidad2:tutor[0].Disponibilidad_d})
-      console.log(tutor[0].Nombre)
+      this.setState({tablaEspecialidad:tutor[0].Especialidad})
+      this.setState({tablaFoto:tutor[0].imagenT})
+      this.setState({tablaDisponibilidad2:tutor[0].DisponibilidadTermino})
+      console.log(tutor[0].nombreT)
       console.log(this.state)
     })
   }

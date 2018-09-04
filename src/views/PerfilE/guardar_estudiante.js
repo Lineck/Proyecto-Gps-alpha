@@ -98,6 +98,7 @@ class guardar_estudiante extends Component {
       error_disponibilidad: '',
       error_disponibilidad_d: '',
       error_ubicacion: '',
+      email:'prueba',
     };
 
 
@@ -129,6 +130,7 @@ class guardar_estudiante extends Component {
     data.append('ubicacionE', this.state.ubicacion)
     data.append('telefonoE', this.state.fono)
     data.append('foto', this.state.foto)
+    data.append('emailE',this.state.email)
     
     fetch("http://localhost/guardar_estudiante.php",
     {
@@ -137,6 +139,7 @@ class guardar_estudiante extends Component {
     }) 
     //this.props.cambio()
   }
+  
     e.preventDefault();
     this.state.verVista = 0;
   };
@@ -144,6 +147,11 @@ class guardar_estudiante extends Component {
     validar = () =>{
 
         var flagError = true;
+
+        this.setState({error_nombre: ''})
+        this.setState({error_apellido: ''})
+        this.setState({error_fono: ''})
+        this.setState({error_ubicacion: ''})
 
         if(this.state.nombre === ''){
           flagError=false;

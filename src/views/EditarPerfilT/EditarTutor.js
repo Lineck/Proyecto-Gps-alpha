@@ -94,6 +94,7 @@ const styles = {
         error_disponibilidad: '',
         error_disponibilidad_d: '',
         error_ubicacion: '',
+        emailT:'prueba',
       };
   
   
@@ -101,22 +102,26 @@ const styles = {
     }
     
     componentDidMount(){
-        fetch("http://localhost/leer_tutor.php")
+      var data = new FormData()
+      data.append('EmailT',this.state.emailT)
+        fetch("http://localhost/leer_tutor.php",{
+          method: "POST",
+          body: data
+        })
         .then((response => {
           return response.json()
         }))
         .then( tutor => {
-          this.setState({nombre:tutor[0].Nombre})
-          this.setState({apellido:tutor[0].Apellido})
-          this.setState({disponibilidad:tutor[0].Disponibilidad})
-          this.setState({ubicacion:tutor[0].Ubicacion})
+          this.setState({nombre:tutor[0].nombreT})
+          this.setState({apellido:tutor[0].ApellidoT})
+          this.setState({disponibilidad:tutor[0].DisponibilidadInicio})
+          this.setState({ubicacion:tutor[0].ubicacion})
           this.setState({fono:tutor[0].Telefono})
           this.setState({metodo:tutor[0].Metodo})
-          this.setState({especialidad:tutor[0].Materia})
+          this.setState({especialidad:tutor[0].Especialidad})
        //   this.setState({foto:tutor[0].foto_perfil})
-          this.setState({vistaPrevia:tutor[0].foto_perfil})
-          this.setState({disponibilidad_d:tutor[0].Disponibilidad_d})
-          console.log(tutor[0].Nombre)
+          this.setState({vistaPrevia:tutor[0].imagenT})
+          this.setState({disponibilidad_d:tutor[0].DisponibilidadTermino})
           console.log(this.state)
         })
       }
@@ -152,6 +157,8 @@ const styles = {
       data.append('especialidad', this.state.especialidad)
       data.append('foto', this.state.foto)
       data.append('disponibilidad_d', this.state.disponibilidad_d)
+      data.append('EmailT', this.state.emailT)
+      console.log(data)
       
       fetch("http://localhost/editar_tutor.php",
       {
@@ -165,6 +172,14 @@ const styles = {
     };
   
       validar = () =>{
+
+         this.setState({error_nombre: ''})
+         this.setState({error_apellido: ''})
+         this.setState({error_fono: ''})
+         this.setState({error_ubicacion: ''})
+         this.setState({error_materia: ''})
+         this.setState({error_disponibilidad: ''})
+         this.setState({error_disponibilidad_d: ''})
   
           var flagError = true;
   
