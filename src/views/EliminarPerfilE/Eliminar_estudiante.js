@@ -48,14 +48,14 @@ const styles = {
   }
 
 
-class Vista2 extends Component  {
+class Eliminar_estudiante extends Component  {
 
   eliminarTutor(){
-    fetch("http://localhost/borrar_tutor.php", {
+    var data = new FormData()
+    data.append('EmailE',this.state.EmailE)
+    fetch("http://localhost/borrar_estudiante.php", {
       method: 'POST',
-          headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-          },
+      body:data
     })
   }
 
@@ -69,6 +69,7 @@ class Vista2 extends Component  {
       tablaTelefono: 'placeholder',
       tablaUbicacion: 'placeholder',
       tablaFoto: '',
+      EmailE:'prueba2',
 
     };
 
@@ -77,17 +78,22 @@ class Vista2 extends Component  {
   }
 
   componentDidMount(){
-    fetch("http://localhost/leer_estudiante.php")
+    var data = new FormData()
+    data.append('EmailE',this.state.EmailE)
+    fetch("http://localhost/leer_estudiante.php",{
+      method: "POST",
+      body: data
+    })
     .then((response => {
       return response.json()
     }))
-    .then( tutor => {
-      this.setState({tablaNombre:tutor[0].Nombre})
-      this.setState({tablaApellido:tutor[0].Apellido})
-      this.setState({tablaUbicacion:tutor[0].Ubicacion})
-      this.setState({tablaTelefono:tutor[0].Telefono})
-      this.setState({tablaFoto:tutor[0].foto_perfil})
-      console.log(tutor[0].Nombre)
+    .then( estudiante => {
+      this.setState({tablaNombre:estudiante[0].NombreE})
+      this.setState({tablaApellido:estudiante[0].ApellidoE})
+      this.setState({tablaUbicacion:estudiante[0].localidad})
+      this.setState({tablaTelefono:estudiante[0].TelefonoE})
+      this.setState({tablaFoto:estudiante[0].ImagenE})
+      console.log(estudiante[0].NombreE)
       console.log(this.state)
     })
   }
@@ -141,4 +147,4 @@ class Vista2 extends Component  {
 
 }
 
-export default Vista2;
+export default Eliminar_estudiante;

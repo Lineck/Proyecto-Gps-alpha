@@ -97,6 +97,7 @@ class Vista1 extends Component {
       error_disponibilidad: '',
       error_disponibilidad_d: '',
       error_ubicacion: '',
+      email: 'prueba',
     };
 
 
@@ -132,13 +133,14 @@ class Vista1 extends Component {
     data.append('especialidad', this.state.especialidad)
     data.append('foto', this.state.foto)
     data.append('disponibilidad_d', this.state.disponibilidad_d)
+    data.append('emailT',this.state.email)
     
     fetch("http://localhost/action_page.php",
     {
     method: "POST",
     body: data
     }) 
-    this.props.cambio()
+    //this.props.cambio()
   }
     e.preventDefault();
     this.state.verVista = 0;
@@ -147,6 +149,13 @@ class Vista1 extends Component {
     validar = () =>{
 
         var flagError = true;
+        this.setState({error_nombre: ''})
+        this.setState({error_apellido: ''})
+        this.setState({error_fono: ''})
+        this.setState({error_ubicacion: ''})
+        this.setState({error_materia: ''})
+        this.setState({error_disponibilidad: ''})
+        this.setState({error_disponibilidad_d: ''})
 
         if(this.state.nombre === ''){
           flagError=false;
@@ -235,7 +244,6 @@ class Vista1 extends Component {
         
       />
 
-
       <Paper  style ={styles.root}  elevation={4}>
         <Typography variant="headline" component="h3">
           Su perfil de tutor.
@@ -254,7 +262,6 @@ class Vista1 extends Component {
           error={this.state.error_nombre===''? false : true}
           helperText={this.state.error_nombre}
         />
-        
         <br />
         <TextField
           value={this.state.apellido}
@@ -269,7 +276,6 @@ class Vista1 extends Component {
           error={this.state.error_apellido===''? false : true}
           helperText={this.state.error_apellido}
         />
-        <br />
         <br />
         <br />
         <InputLabel htmlFor="age-helper">Disponibilidad horaria</InputLabel>
@@ -288,7 +294,6 @@ class Vista1 extends Component {
           shrink: true,
         }}
         />
-
       <TextField style={{marginLeft: 20}}
         name="disponibilidad_d"
         onChange={this.handleChange}
@@ -315,7 +320,6 @@ class Vista1 extends Component {
           placeholder="Materia a dictar"
           error={this.state.error_materia===''? false : true}
           helperText={this.state.error_materia}
-          
         />
         <br />
         <TextField

@@ -96,12 +96,12 @@ class MuroAnuncioAlumno extends React.Component{
         var vista;
 
         var muro = <GridContainer justify="center">
-                        <GridItem xs={12} sm={12} md={7}>
+                        <GridItem xs={12} sm={12} md={12}>
                             <Card>
                                 <GridContainer justify="center">
                                     <GridItem xs={12} sm={12} md={9}>
                                         <h2>Estudiantes buscando clases</h2>
-                                        <p>Anuncios publicados por alumnos que buscan un profesor de alguna materia particular</p>
+                                        <p>Anuncios publicados por alumnos que buscan un/a profesor/a de alguna materia particular</p>
                                         {this.buildMuro()}
                                     </GridItem>
                                 </GridContainer>

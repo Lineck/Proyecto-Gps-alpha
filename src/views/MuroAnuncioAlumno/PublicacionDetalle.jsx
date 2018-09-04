@@ -48,7 +48,7 @@ class PublicacionDetalle extends React.Component{
 
         if(this.state.publicacion != null){
             vista = <GridContainer justify="center">
-                <GridItem xs={12} sm={12} md={7}>
+                <GridItem xs={12} sm={12} md={12}>
                     <Card>
                         <GridContainer justify="center">
                             <GridItem xs={12} sm={12} md={9}>

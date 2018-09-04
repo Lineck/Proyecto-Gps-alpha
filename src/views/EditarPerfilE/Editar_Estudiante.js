@@ -88,6 +88,7 @@ const styles = {
         error_apellido: '',
         error_fono: '',
         error_ubicacion: '',
+        EmailE: 'prueba'
       };
   
   
@@ -95,18 +96,23 @@ const styles = {
     }
     
     componentDidMount(){
-        fetch("http://localhost/leer_estudiante.php")
+      var data = new FormData()
+      data.append('EmailE',this.state.EmailE)
+        fetch("http://localhost/leer_estudiante.php",{
+          method: "POST",
+          body: data
+        })
         .then((response => {
           return response.json()
         }))
         .then( estudiante => {
-          this.setState({nombre:estudiante[1].NombreE})
-          this.setState({apellido:estudiante[1].ApellidoE})
-          this.setState({ubicacion:estudiante[1].LocalidadE})
-          this.setState({fono:estudiante[1].Telefono}   )
-       //   this.setState({foto:tutor[0].foto_perfil})
-          this.setState({vistaPrevia:estudiante[1].foto_perfil})
-          console.log(estudiante[1].NombreE)
+          this.setState({nombre:estudiante[0].NombreE})
+          this.setState({apellido:estudiante[0].ApellidoE})
+          this.setState({ubicacion:estudiante[0].localidad})
+          this.setState({fono:estudiante[0].TelefonoE}   )
+          //this.setState({foto:estudiante[0].ImagenE})
+          this.setState({vistaPrevia:estudiante[0].ImagenE})
+          console.log(estudiante[0].NombreE)
           console.log(this.state)
         })
       }
@@ -133,11 +139,12 @@ const styles = {
       if(this.validar()==true){
       var data = new FormData()
       data.append("has_image", this.state.foto === ""? "false": "true")
-      data.append('nombreT', this.state.nombre)
-      data.append('apellidoT', this.state.apellido)
-      data.append('ubicacion', this.state.ubicacion)
-      data.append('telefono', this.state.fono)
+      data.append('nombreE', this.state.nombre)
+      data.append('apellidoE', this.state.apellido)
+      data.append('ubicacionE', this.state.ubicacion)
+      data.append('telefonoE', this.state.fono)
       data.append('foto', this.state.foto)
+      data.append('EmailE',this.state.EmailE)
       
       fetch("http://localhost/editar_estudiante.php",
       {
