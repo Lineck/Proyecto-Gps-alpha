@@ -43,7 +43,7 @@ class MuroClases extends React.Component{
     }
 
     LoadData(){
-        fetch("http://localhost/build/server/cesarScripts/ClaseControlador.php",{
+        fetch("../server/cesarScripts/ClaseControlador.php",{
             method: "POST",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

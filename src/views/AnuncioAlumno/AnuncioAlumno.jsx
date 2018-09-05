@@ -93,7 +93,7 @@ class AnuncioAlumno extends React.Component{
     }
 
     LoadData(){
-        fetch("http://localhost/build/server/cesarScripts/MateriaControlador.php",{
+        fetch("../server/cesarScripts/MateriaControlador.php",{
             method: "POST",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -122,7 +122,7 @@ class AnuncioAlumno extends React.Component{
         {
             alert("Rellenar todos los campos")
         }else{
-            fetch("http://localhost/build/server/cesarScripts/PublicacionAlumnoControlador.php",{
+            fetch("../server/cesarScripts/PublicacionAlumnoControlador.php",{
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'

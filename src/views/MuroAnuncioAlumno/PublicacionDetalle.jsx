@@ -25,7 +25,7 @@ class PublicacionDetalle extends React.Component{
     }
 
     LoadData(){
-        fetch("http://localhost/build/server/cesarScripts/PublicacionAlumnoControlador.php",{
+        fetch("../server/cesarScripts/PublicacionAlumnoControlador.php",{
             method: "POST",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

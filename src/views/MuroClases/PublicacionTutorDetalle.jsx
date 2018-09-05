@@ -27,7 +27,7 @@ class PublicacionTutorDetalle extends React.Component{
     }
 
     initSesion(){
-        fetch("http://localhost/build/server/cesarScripts/initSession.php",{
+        fetch("../server/cesarScripts/initSession.php",{
             method: "POST",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -43,7 +43,7 @@ class PublicacionTutorDetalle extends React.Component{
     }
 
     LoadData(){
-        fetch("http://localhost/build/server/cesarScripts/ClaseControlador.php",{
+        fetch("../server/cesarScripts/ClaseControlador.php",{
             method: "POST",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -65,7 +65,7 @@ class PublicacionTutorDetalle extends React.Component{
         if(this.props.correo==''){
             alert('Por favor inicie sesion')
         }else{
-            fetch("http://localhost/build/server/cesarScripts/InscripcionControlador.php",{
+            fetch("../server/cesarScripts/InscripcionControlador.php",{
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
