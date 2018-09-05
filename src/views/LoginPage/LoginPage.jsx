@@ -1,9 +1,12 @@
 import React from "react";
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import Snackbar from '@material-ui/core/Snackbar';
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 // @material-ui/icons
-import InfoOutline from "@material-ui/icons/InfoOutline";
+
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 import Email from "@material-ui/icons/Email";
 import LockOutline from "@material-ui/icons/LockOutline";
@@ -17,9 +20,86 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
-
+import CloseIcon from '@material-ui/icons/Close';
+import green from '@material-ui/core/colors/green';
+import amber from '@material-ui/core/colors/amber';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ErrorIcon from '@material-ui/icons/Error';
+import InfoIcon from '@material-ui/icons/Info';
+import WarningIcon from '@material-ui/icons/Warning';
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
+import IconButton from '@material-ui/core/IconButton';
 
+const variantIcon = {
+  success: CheckCircleIcon,
+  warning: WarningIcon,
+  error: ErrorIcon,
+  info: InfoIcon,
+};
+const styles1 = theme => ({
+  success: {
+    backgroundColor: green[600],
+  },
+  error: {
+    backgroundColor: theme.palette.error.dark,
+  },
+  info: {
+    backgroundColor: theme.palette.primary.dark+'!important',
+  },
+  warning: {
+    backgroundColor: amber[700],
+  },
+  icon: {
+    fontSize: 20,
+  },
+  iconVariant: {
+    opacity: 0.9,
+    marginRight: theme.spacing.unit,
+  },
+  message: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+});
+
+function MySnackbarContent  (props)  {
+  const { classes, className, message, onClose, variant, ...other } = props;
+  const Icon = variantIcon[variant];
+
+  return (
+    <SnackbarContent
+      className={classNames(classes[variant], className)}
+      aria-describedby="client-snackbar"
+      message={
+        <span id="client-snackbar" className={classes.message}>
+          <Icon className={classNames(classes.icon, classes.iconVariant)} />
+          {message}
+        </span>
+      }
+      action={[
+        <IconButton
+          key="close"
+          aria-label="Close"
+          color="inherit"
+          className={classes.close}
+          onClick={onClose}
+        >
+          <CloseIcon className={classes.icon} />
+        </IconButton>,
+      ]}
+      {...other}
+    />
+  );
+}
+
+MySnackbarContent.propTypes = {
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  message: PropTypes.node,
+  onClose: PropTypes.func,
+  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
+};
+const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
 
 
 class LoginPage extends React.Component {
@@ -29,13 +109,25 @@ class LoginPage extends React.Component {
           email:'',
           contraseña:'',
           cardAnimaton: "cardHidden",
-          error:1      
+          errorU:'',
+          errorC:''    
     };
     
     this.login=this.login.bind(this);
     this.onChange=this.onChange.bind(this);
   }
-  
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ errorU: false });
+  }
+  handleClose2 = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ errorC: false });
+  }
   login(){
 
     // fetch("../../../server/checklogin.php",{
@@ -64,8 +156,12 @@ class LoginPage extends React.Component {
 
             if(mytext==="EV"){
               this.props.SetLog(2);
-            }else{
-              this.errorDidMount(mytext);
+            }
+            if(mytext==="EU"){
+              this.setState({errorU:true});
+            }
+            if(mytext==="EC"){
+              this.setState({errorC:true});
             }
           }          
         }
@@ -76,17 +172,6 @@ class LoginPage extends React.Component {
   onChange(e){
     this.setState({[e.target.name]: e.target.value})
   } 
-
-  errorDidMount(usuario) {
-   this.setState({error:usuario}) 
-    setTimeout(
-      
-      function() {
-        this.setState({ error: "" });
-      }.bind(this),
-      3000
-    );
-  }
 
   componentDidMount() {
     setTimeout(
@@ -101,7 +186,7 @@ class LoginPage extends React.Component {
     
     return (
       <div >
-       
+        
         <div
           className={classes.pageHeader}
           style={{
@@ -203,32 +288,48 @@ class LoginPage extends React.Component {
                 </Card>
               </GridItem>
             </GridContainer>
-            <div style={{minHeight:'20vh'}}>
-              { this.state.error === "EC"? <SnackbarContent
-              message={
-                  <span><b>INFO ALERT:</b>Contraseña incorrecta</span>
-              }
-              close={true}
-              color="danger"
-              icon={InfoOutline}
-              /> :
-              this.state.error === "EU"? <SnackbarContent
-              message={
-                <span><b>INFO ALERT:</b> Usuario incorrecto</span>
-              }
-              close={true}
-              color="danger"
-              icon={InfoOutline}
-              /> :""}
-            </div>
+            
             
           </div >
-          
+        
+          <br/>
+          <br/>
           <div >
           <Footer/>
           </div>
           
         </div>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.errorC}
+          autoHideDuration={3000}
+          onClose={this.handleClose2}
+        >
+          <MySnackbarContentWrapper
+            onClose={this.handleClose2}
+            variant="error"
+            message="Contraseña Incorrecta"
+          />
+        </Snackbar>
+        <Snackbar
+     
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.errorU}
+          autoHideDuration={3000}
+          onClose={this.handleClose}
+        >
+          <MySnackbarContentWrapper
+            onClose={this.handleClose}
+            variant="error"
+            message="Usuario Incorrecto"
+          />
+        </Snackbar>
       </div>
     );
   }

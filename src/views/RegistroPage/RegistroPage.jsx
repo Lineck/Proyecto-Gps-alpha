@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import withStyles from "@material-ui/core/styles/withStyles";
-import InfoOutline from "@material-ui/icons/InfoOutline";
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import IconButton from '@material-ui/core/IconButton';
@@ -146,18 +145,21 @@ class RegistroPage extends React.Component {
         this.state = {
           rut:'',
           rut_error : '',
+          rut_existente:false,
           nombre:'',
           nombre_error : '',
           apellido:'',
           apellido_error:'',
           correo:'',
+          correo_existente:'',
           correo_error:'',
           contrasenia:'',
           contrasenia_error:'',
           localidad:'Concepcion',
           localidad_error:'',
-          open: false,
-          open2:false,
+          vacioE:false,
+          rutE:false
+         
     
         }
         this.validar2=this.validar2.bind(this);        
@@ -212,30 +214,38 @@ class RegistroPage extends React.Component {
     validar2(){
         var flag=true;        
         this.setState({rut_error:'', nombre_error:'',apellido_error:'',correo_error:'',contrasenia_error:'',localidad_error:''}); 
-        
+        this.validar();
+        this.validarcorreo2();
         if(this.state.rut===''){
           flag=false;
-          this.setState({rut_error:'Campo requerido'}); 
+          this.setState({vacioE:true,
+                        rut_error:"campo requerido"}); 
+          
         }
         if(this.state.nombre===''){
           flag=false;
-          this.setState({nombre_error:'Campo requerido'}); 
+          this.setState({vacioE:true,
+            nombre_error:"campo requerido"}); 
         }
         if(this.state.apellido===''){
           flag=false;
-          this.setState({apellido_error:'Campo requerido'}); 
+          this.setState({vacioE:true,
+            apellido_error:"campo requerido"}); 
         }
         if(this.state.correo===''){
           flag=false;
-          this.setState({correo_error:'Campo requerido'}); 
+          this.setState({vacioE:true,
+            correo_error:"campo requerido"}); 
         }
         if(this.state.contrasenia===''){
           flag=false;
-          this.setState({contrasenia_error:'Campo requerido'}); 
-        }
+          this.setState({vacioE:true,
+            contrasenia_error:"campo requerido"});      
+           }
         if(this.state.localidad===''){
           flag=false;
-          this.setState({localidad_error:'Campo requerido'}); 
+          this.setState({vacioE:true,
+            localidad_error:"campo requerido"});  
         }
         if(this.validarCorreo()===false){
           flag=false;
@@ -243,8 +253,10 @@ class RegistroPage extends React.Component {
         }
         if(this.checkRut(this.state.rut)===false){
           flag=false;
-          this.setState({rut_error:'Rut no valido'})
+          this.setState({rut_error:'Rut no valido',
+          rutE:true})
         }
+        
         return flag;
     }
 
@@ -256,10 +268,9 @@ class RegistroPage extends React.Component {
     }
 
     registrar(){
-      this.validar();
-      this.validarcorreo();
-      if(this.state.correo_error==='' && this.state.rut_error===''){
-        if(this.validar2()===true){  
+      
+      
+        if(this.validar2()===true && this.state.rut_existente===false && this.state.correo_existente===false){  
           fetch("http://localhost/build/server/registro.php",{
             // fetch("../../server/registro.php",{
             method:"POST",
@@ -271,8 +282,6 @@ class RegistroPage extends React.Component {
           .then(()=>{
             this.props.SetLog(2); 
           })
-        
-        }
       
       }
  
@@ -292,10 +301,10 @@ class RegistroPage extends React.Component {
         return result.text();        
       })
       .then((text)=>{
-        if(text==="false"){          
-          this.setState({rut_error:'Rut Existente'});
-        }else{       
-          
+        if(text==="false"){
+          this.setState({rut_existente:true})
+        }else{
+         
         }
       })     
     }
@@ -303,16 +312,28 @@ class RegistroPage extends React.Component {
       if (reason === 'clickaway') {
         return;
       }
-      this.setState({ open2: false });
+      this.setState({ rutE: false });
+    }
+    handleClose3 = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      this.setState({ rut_existente: false });
+    }
+    handleClose4 = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      this.setState({ correo_existente: false });
     }
     handleClose = (event, reason) => {
       if (reason === 'clickaway') {
         return;
       }
   
-      this.setState({ open: false });
+      this.setState({ vacioE: false });
     };
-    validarcorreo(){
+    validarcorreo2(){
  
       fetch("http://localhost/build/server/checkCorreo.php",{
         // fetch("../../server/checkCorreo.php",{
@@ -327,7 +348,7 @@ class RegistroPage extends React.Component {
         })
         .then((text)=>{
           if(text==="false"){          
-            this.setState({correo_error:'Correo Existente'});
+            this.setState({correo_existente:true});
           }else{       
            
           }
@@ -339,7 +360,67 @@ class RegistroPage extends React.Component {
     const { classes } = this.props;
  
   return (
-    <div >      
+    <div >  
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.vacioE}
+          autoHideDuration={6000}
+          onClose={this.handleClose}
+        >
+          <MySnackbarContentWrapper
+            onClose={this.handleClose}
+            variant="error"
+            message="Porfavor rellene todos los campos"
+          />
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.rut_existente}
+          autoHideDuration={6000}
+          onClose={this.handleClose3}
+        >
+          <MySnackbarContentWrapper
+            onClose={this.handleClose3}
+            variant="error"
+            message="El rut ingresado ya existe"
+          />
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.correo_existente}
+          autoHideDuration={6000}
+          onClose={this.handleClose4}
+        >
+          <MySnackbarContentWrapper
+            onClose={this.handleClose4}
+            variant="error"
+            message="El correo ingresado ya existe"
+          />
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.rutE}
+          autoHideDuration={6000}
+          onClose={this.handleClose2}
+        >
+          <MySnackbarContentWrapper
+            onClose={this.handleClose2}
+            variant="error"
+            message="Rut Incorrecto"
+          />
+        </Snackbar>
           <HeaderGps SetLog={this.props.SetLog}/>      
       <br/><br/>
       
@@ -503,36 +584,8 @@ class RegistroPage extends React.Component {
         </GridItem >  
        </GridContainer>
         </ MuiThemeProvider>
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          open={this.state.open}
-          autoHideDuration={6000}
-          onClose={this.handleClose}
-        >
-          <MySnackbarContentWrapper
-            onClose={this.handleClose}
-            variant="warning"
-            message="This is a success message!"
-          />
-        </Snackbar>
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          open={this.state.open2}
-          autoHideDuration={6000}
-          onClose={this.handleClose2}
-        >
-          <MySnackbarContentWrapper
-            onClose={this.handleClose2}
-            variant="success"
-            message="This is a success message!"
-          />
-        </Snackbar>
+        
+      
       <br/><br/> <br/><br/>
       
       <Footer />

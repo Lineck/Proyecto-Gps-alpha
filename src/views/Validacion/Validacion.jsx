@@ -6,8 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import HeaderGps from "components/Header/HeaderGps.jsx"
-import Footer from "components/Footer/Footer.jsx";
+
 
  class Validacion extends React.Component {
    constructor(props){
@@ -31,7 +30,7 @@ import Footer from "components/Footer/Footer.jsx";
     }).then((mytext)=>{
       if(mytext==="true"){
         this.setState({token_error:''});
-        this.props.SetLog(3);
+        this.props.SetLog(0);
       }else{
         this.setState({token_error:"Token no coincide"})
       }
@@ -46,7 +45,7 @@ import Footer from "components/Footer/Footer.jsx";
     return (
       <div>
         
-        <HeaderGps SetLog={this.props.SetLog}/>
+        
         <Dialog
           open={true}
           onClose={this.handleClose}
@@ -80,7 +79,7 @@ import Footer from "components/Footer/Footer.jsx";
           </DialogActions>
         </Dialog>
         <div >
-          <Footer style={{marginTop:'9vh'}}/>
+        
         </div>        
       </div>
     )
