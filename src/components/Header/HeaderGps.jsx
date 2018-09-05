@@ -61,14 +61,10 @@ class HeaderGps extends React.Component {
         return(
             <Header        
                 SetLog={this.props.SetLog}
-                color="transparent"
+                color="primary"
                 brand="Tutorias UBB"
                 fixed
-                changeColorOnScroll={{
-                height: 80,
-                color: "white"
-
-                }}
+               
                 rightLinks={
                 <List className={classes.list}>
                     <ListItem className={classes.listItem}>

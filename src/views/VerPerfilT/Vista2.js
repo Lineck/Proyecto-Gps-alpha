@@ -12,6 +12,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Header from "components/Header/Header.jsx";
 import MenuT from "../../components/MenuT/MenuT";
+import Snackbar from '@material-ui/core/Snackbar';
 
 const styles = {
     root: {
@@ -82,6 +83,7 @@ class Vista2 extends Component  {
       method: 'POST',
       body: data 
     })
+    this.setState({estado:true});
   }
 
   constructor(props) {
@@ -99,12 +101,21 @@ class Vista2 extends Component  {
       tablaUbicacion: 'placeholder',
       tablaFoto: '',
       emailT:'',
+      estado:false,
 
     };
 
    this.state.emailT= this.props.email;
    
   }
+  
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ estado: false });
+  };
 
   componentDidMount(){
     var data = new FormData()
@@ -138,14 +149,10 @@ class Vista2 extends Component  {
     <div>
     <Header        
         SetLog={this.props.SetLog}
-        color="transparent"
+        color="primary"
         brand="Tutorias UBB"
         fixed
-        changeColorOnScroll={{
-          height: 80,
-          color: "white"
-
-          }}
+      
         rightLinks={
           <List style={styles.list}>
             <ListItem style={styles.listItem}>
@@ -159,10 +166,7 @@ class Vista2 extends Component  {
           </List>
         }
         
-        changeColorOnScroll={{
-          height: 400,
-          color: "primary"
-        }}
+     
 
         
         
@@ -220,6 +224,18 @@ class Vista2 extends Component  {
       <DeleteIcon style={{marginLeft: 10}}/>
       </Button>
       </ConfirmationModal>
+      <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.estado}
+          autoHideDuration={4000}
+          onClose={this.handleClose}
+          message={<span id="message-id">Perfil Eliminado</span>}
+          action={[
+          ]}
+        />
     </Paper>
     </div>
 

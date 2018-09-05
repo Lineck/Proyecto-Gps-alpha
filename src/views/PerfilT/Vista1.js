@@ -13,6 +13,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Header from "components/Header/Header.jsx";
 import MenuT from "../../components/MenuT/MenuT";
+import Snackbar from '@material-ui/core/Snackbar';
 
 
 const styles = {
@@ -98,11 +99,19 @@ class Vista1 extends Component {
       error_disponibilidad_d: '',
       error_ubicacion: '',
       email: '',
+      estado:false,
     };
     this.state.email=this.props.email;
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ estado: false });
+  };
 
   handleImageChange = (e) => {
     let reader = new FileReader();
@@ -140,6 +149,7 @@ class Vista1 extends Component {
     method: "POST",
     body: data
     }) 
+    this.setState({estado:true});
     //this.props.cambio()
   }
     e.preventDefault();
@@ -214,14 +224,10 @@ class Vista1 extends Component {
 
       <Header        
         SetLog={this.props.SetLog}
-        color="transparent"
+        color="primary"
         brand="Tutorias UBB"
         fixed
-        changeColorOnScroll={{
-          height: 80,
-          color: "white"
-
-          }}
+       
         rightLinks={
           <List style={styles.list}>
             <ListItem style={styles.listItem}>
@@ -235,11 +241,7 @@ class Vista1 extends Component {
           </List>
         }
         
-        changeColorOnScroll={{
-          height: 400,
-          color: "primary"
-        }}
-
+       
         
         
       />
@@ -392,6 +394,18 @@ class Vista1 extends Component {
          Enviar
         <Send style={{marginLeft: 10}}/>
         </Button>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.estado}
+          autoHideDuration={4000}
+          onClose={this.handleClose}
+          message={<span id="message-id">Perfil Almacenado</span>}
+          action={[
+          ]}
+        />
         
       </Paper>
       </div>

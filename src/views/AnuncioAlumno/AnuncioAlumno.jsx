@@ -165,7 +165,7 @@ class AnuncioAlumno extends React.Component{
             <div>
                 <Header        
         SetLog={this.props.SetLog}
-        color="transparent"
+        color="primary"
         brand="Tutorias UBB"
         fixed
         rightLinks={
@@ -183,10 +183,7 @@ class AnuncioAlumno extends React.Component{
                 </List>
         }
         
-        changeColorOnScroll={{
-          height: 400,
-          color: "primary"
-        }}
+        
 
         
         

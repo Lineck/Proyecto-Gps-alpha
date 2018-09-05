@@ -109,8 +109,8 @@ class LoginPage extends React.Component {
           email:'',
           contraseña:'',
           cardAnimaton: "cardHidden",
-          errorU:'',
-          errorC:''    
+          errorU:false,
+          errorC:false    
     };
     
     this.login=this.login.bind(this);
@@ -284,6 +284,10 @@ class LoginPage extends React.Component {
                         Registrarse
                       </Button>
                     </CardFooter>
+                    <Button style={{fontSize:'11px',marginLeft:'70px',marginBottom:'20px'}}simple color="primary" size="md" onClick={() => this.props.SetLog(13)}>
+                    Olvide mi Contraseña
+                      </Button>
+                   
                   </form>
                 </Card>
               </GridItem>

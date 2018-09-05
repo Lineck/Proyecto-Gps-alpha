@@ -8,6 +8,11 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ConfirmationModal from '../PerfilE/ConfirmationModal'
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import Header from "components/Header/Header.jsx";
+import MenuE from "../../components/MenuE/MenuE";
+import Snackbar from '@material-ui/core/Snackbar';
 
 const styles = {
     root: {
@@ -25,6 +30,26 @@ const styles = {
       marginLeft: "10%",
       marginRight: "10%",
       paddingTop: 20
+    },
+    list: {
+    
+      fontSize: "14px",
+      margin: 0,
+      paddingLeft: "0",
+      listStyle: "none",
+      paddingTop: "0",
+      paddingBottom: "0",
+     
+    },
+    listItem: {
+      float: "left",
+      color: "inherit",
+      position: "relative",
+      display: "block",
+      width: "auto",
+      margin: "0",
+      padding: "0",
+      
     },
   
   
@@ -57,6 +82,7 @@ class Eliminar_estudiante extends Component  {
       method: 'POST',
       body:data
     })
+    this.setState({estado:true});
   }
 
   constructor(props) {
@@ -70,6 +96,7 @@ class Eliminar_estudiante extends Component  {
       tablaUbicacion: 'placeholder',
       tablaFoto: '',
       EmailE:'',
+      estado:false,
 
     };
     this.state.EmailE=this.props.email;
@@ -77,6 +104,13 @@ class Eliminar_estudiante extends Component  {
     
    
   }
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ estado: false });
+  };
 
   componentDidMount(){
     var data = new FormData()
@@ -103,45 +137,87 @@ class Eliminar_estudiante extends Component  {
   render(){
    return( 
 
+    <div>
+       <Header        
+        SetLog={this.props.SetLog}
+        color="primary"
+        brand="Tutorias UBB"
+        fixed
+        rightLinks={
+          <List style={styles.list}>
+            <ListItem style={styles.listItem}>
+              <Button onClick={()=>this.props.SetLog(1)} style={{color:"#fff"}}>iniciar sesion</Button>
+            </ListItem>
+          <ListItem style={styles.listItem}>
+          <MenuE  SetLog={this.props.SetLog} cerrarSesion={this.props.cerrarSesion}/>   
 
-      
-    <Paper style={styles.card2}> 
+          
+             
+          </ListItem>
+         
+                </List>
+        }
+        
+       
 
-      <Avatar
-        style={{border: 0}} 
-        size={100}
-        style={styles.avatar}
-        src={ "http://localhost"+this.state.tablaFoto.replace("xampp/htdocs/","")}
+        
+        
       />
+      <br/> <br/><br/>
 
-      <Table>
-        <TableBody>
-          <TableRow>
-            <TableCell>Nombre:</TableCell>
-            <TableCell >{this.state.tablaNombre}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Apellido:</TableCell>
-            <TableCell>{this.state.tablaApellido}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Telefono:</TableCell>
-            <TableCell>{this.state.tablaTelefono}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Ubicacion:</TableCell>
-            <TableCell>{this.state.tablaUbicacion}</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+      <Paper style={styles.card2}> 
 
-      <ConfirmationModal message={"La siguiente accion borrara sus datos de forma permanente, ¿desea continuar?"} onSubmit={()=>this.eliminarTutor()}>
-      <Button variant="raised"  color="secondary" style ={styles.boton}>
-         Eliminar 
-      <DeleteIcon style={{marginLeft: 10}}/>
-      </Button>
-      </ConfirmationModal>
-    </Paper>
+<Avatar
+  style={{border: 0}} 
+  size={100}
+  style={styles.avatar}
+  src={ "http://localhost"+this.state.tablaFoto.replace("xampp/htdocs/","")}
+/>
+
+<Table>
+  <TableBody>
+    <TableRow>
+      <TableCell>Nombre:</TableCell>
+      <TableCell >{this.state.tablaNombre}</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Apellido:</TableCell>
+      <TableCell>{this.state.tablaApellido}</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Telefono:</TableCell>
+      <TableCell>{this.state.tablaTelefono}</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Ubicacion:</TableCell>
+      <TableCell>{this.state.tablaUbicacion}</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+<ConfirmationModal message={"La siguiente accion borrara sus datos de forma permanente, ¿desea continuar?"} onSubmit={()=>this.eliminarTutor()}>
+<Button variant="raised"  color="secondary" style ={styles.boton}>
+   Eliminar 
+<DeleteIcon style={{marginLeft: 10}}/>
+</Button>
+</ConfirmationModal>
+</Paper>
+
+ <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.estado}
+          autoHideDuration={4000}
+          onClose={this.handleClose}
+          message={<span id="message-id">Perfil Eliminado</span>}
+          action={[
+          ]}
+        />
+    </div>
+      
+    
 
     )
   }

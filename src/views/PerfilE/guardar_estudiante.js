@@ -14,6 +14,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Header from "components/Header/Header.jsx";
 import MenuE from "../../components/MenuE/MenuE";
+import Snackbar from '@material-ui/core/Snackbar';
 
 
 const styles = {
@@ -99,12 +100,20 @@ class guardar_estudiante extends Component {
       error_disponibilidad_d: '',
       error_ubicacion: '',
       email:'',
+      estado:false,
     };
     this.state.email=this.props.email;
 
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ estado: false });
+  };
 
   handleImageChange = (e) => {
     let reader = new FileReader();
@@ -116,6 +125,7 @@ class guardar_estudiante extends Component {
     console.log(reader.result);
     }
     reader.readAsDataURL(file)
+    
   }
 
   handleChange = event => { 
@@ -138,6 +148,7 @@ class guardar_estudiante extends Component {
     method: "POST",
     body: data
     }) 
+    this.setState({estado:true});
     //this.props.cambio()
   }
   
@@ -195,14 +206,10 @@ class guardar_estudiante extends Component {
       <div>
         <Header        
         SetLog={this.props.SetLog}
-        color="transparent"
+        color="primary"
         brand="Tutorias UBB"
         fixed
-        changeColorOnScroll={{
-          height: 80,
-          color: "white"
-
-          }}
+        
         rightLinks={
           <List style={styles.list}>
             <ListItem style={styles.listItem}>
@@ -218,10 +225,7 @@ class guardar_estudiante extends Component {
                 </List>
         }
         
-        changeColorOnScroll={{
-          height: 400,
-          color: "primary"
-        }}
+      
  
       />
 
@@ -319,6 +323,18 @@ class guardar_estudiante extends Component {
         </Button>
         
       </Paper>
+      <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.estado}
+          autoHideDuration={4000}
+          onClose={this.handleClose}
+          message={<span id="message-id">Perfil Almacenado</span>}
+          action={[
+          ]}
+        />
 
 
       </div>

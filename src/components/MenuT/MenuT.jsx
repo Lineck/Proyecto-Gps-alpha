@@ -56,6 +56,7 @@ render(){
                   <MenuItem onClick={()=>{this.handleClose;this.props.SetLog(10)}}>Mi Perfil</MenuItem>
                   <MenuItem onClick={()=>{this.handleClose;this.props.SetLog(11)}}>Crear Tutoria</MenuItem>
                   <MenuItem onClick={()=>{this.handleClose;this.props.SetLog(9)}}>Editar perfil</MenuItem>
+                  <MenuItem onClick={()=>{this.handleClose;this.props.SetLog(14)}}>Editar Tutoria</MenuItem>
                   <MenuItem onClick={()=>this.props.cerrarSesion()}>Cerrar Sesion</MenuItem>
                 </Menu>
               </div>

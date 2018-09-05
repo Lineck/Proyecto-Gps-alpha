@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import './form.css';
+
+import '../AddTutoria/form.css';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Header from "components/Header/Header.jsx";
 import Button from '@material-ui/core/Button';
 import MenuT from "../../components/MenuT/MenuT";
-
 
 const styles = {
   list: {
@@ -32,18 +32,24 @@ const styles = {
 
 }
 
-class Blog extends Component {
 
-  constructor(args){
-    super(args)
+
+class UpdateTutoria extends Component {
+
+  constructor(props){
+    super(props)
     this.state = {
       materia:"",
       titulo:"",
       descripcion:"",
-      correo:"",
+      correo:this.props.correo,
       date:"",
+      id:"",
       showStore:false
     }
+    
+    
+
 
   }
 
@@ -64,6 +70,57 @@ class Blog extends Component {
 
 
 
+
+
+
+
+
+  componentDidMount() {
+    fetch('http://localhost/build/server/lucas/selectClases.php?correo='+this.state.correo)
+  	.then((response)=> {
+  	  return response.json()
+  	})
+  	.then( (responseJSON)=> {
+  		console.log("reading")
+
+  		responseJSON.forEach((clase) => {
+
+        this.setState({
+          materia:clase.materia,
+          titulo:clase.titulo,
+          descripcion:clase.descripcion,
+          correo:clase.correoT,
+          date:clase.fecha,
+          id:clase.idClase
+
+        });
+
+
+
+  			})
+  	});
+
+
+
+
+
+
+    this.setState({
+      materia:"",
+      titulo:"",
+      descripcion:"",
+      correo:"",
+      date:"",
+      showStore:"true"
+    });
+
+
+
+
+
+
+
+ }
 
   insertClase(e) {
     e.preventDefault();
@@ -96,6 +153,7 @@ class Blog extends Component {
   if (this.state.materia !== "" && this.state.titulo !== "" && this.state.descripcion !== ""&& this.state.correo !== ""&& this.state.date !== "") {
 
 
+
     fetch('http://localhost/build/server/lucas/insert.php', {
 
           method:'POST',
@@ -113,14 +171,21 @@ class Blog extends Component {
     		console.log("creada")
 
     	})
-        .then(this.handleCleanState.bind(this));
+        .then(this.handleCleanState.bind(this)
+
+
+
+      );
+      fetch('http://localhost/build/server/lucas/deleteClase.php?id='+this.state.id)
 
         for (var i = 0; i < document.getElementsByClassName("error").length; i++) {
             document.getElementsByClassName("error")[i].style.display="none";
+
         }
 
 }
 }
+
 
 
   handleChange(e){
@@ -132,7 +197,8 @@ class Blog extends Component {
   render() {
     return (
       <div className="form">
-          <Header        
+
+       <Header        
         SetLog={this.props.SetLog}
         color="primary"
         brand="Tutorias UBB"
@@ -154,7 +220,6 @@ class Blog extends Component {
       />
 
 
-
           <label htmlFor="materia"> Materia</label> <span className="error" > *debes agregar un nombre a la materia</span>
           <input name="materia" id="materia" type="text"  value={this.state.materia} onChange={this.handleChange.bind(this)} />
           <label htmlFor="titulo"> Titulo</label> <span className="error" > *debes agregar un titulo </span>
@@ -166,10 +231,9 @@ class Blog extends Component {
           <label htmlFor="date"> Fecha</label> <span className="error" > *debes agregar la fecha de inicio </span>
           <input name="date" id="date" type="date" value={this.state.date} onChange={this.handleChange.bind(this)} />
           <input type="submit" name="button" value="Agregar" onClick={this.insertClase.bind(this)}/>
-
           <div className="success" style={{display: this.state.showStore ? 'block' : 'none' }}> Su clase ha sido publicada exitosamente </div>
 
-          
+        
 
 
 
@@ -178,4 +242,4 @@ class Blog extends Component {
   }
 }
 
-export default Blog;
+export default UpdateTutoria;

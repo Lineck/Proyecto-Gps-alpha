@@ -13,6 +13,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Header from "components/Header/Header.jsx";
 import MenuE from "../../components/MenuE/MenuE";
+import Snackbar from '@material-ui/core/Snackbar';
 
 const styles = {
     root: {
@@ -88,12 +89,21 @@ const styles = {
         error_apellido: '',
         error_fono: '',
         error_ubicacion: '',
-        EmailE: ''
+        EmailE: '',
+        estado:false,
       };
       this.state.EmailE=this.props.email;
   
       this.handleSubmit = this.handleSubmit.bind(this);
     }
+    handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      this.setState({ estado: false });
+  };  
+
     
     componentDidMount(){
       var data = new FormData()
@@ -136,7 +146,9 @@ const styles = {
   
       handleSubmit = (e) => {
 
+
       if(this.validar()==true){
+        this.setState({estado:true});
       var data = new FormData()
       data.append("has_image", this.state.foto === ""? "false": "true")
       data.append('nombreE', this.state.nombre)
@@ -203,7 +215,7 @@ const styles = {
         
         <Header        
         SetLog={this.props.SetLog}
-        color="transparent"
+        color="primary"
         brand="Tutorias UBB"
         fixed
         rightLinks={
@@ -220,12 +232,6 @@ const styles = {
          
                 </List>
         }
-        
-        changeColorOnScroll={{
-          height: 400,
-          color: "primary"
-        }}
-
         
         
       />
@@ -325,6 +331,18 @@ const styles = {
           </Button>
           
         </Paper>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.estado}
+          autoHideDuration={4000}
+          onClose={this.handleClose}
+          message={<span id="message-id">Perfil Editado</span>}
+          action={[
+          ]}
+        />
   
         </div>
         

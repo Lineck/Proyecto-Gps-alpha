@@ -14,6 +14,8 @@ import EditarTutor from './views/EditarPerfilT/EditarTutor';
 import Vista2 from './views/VerPerfilT/Vista2'
 import Blog from './views/AddTutoria/AddTutoria'
 import AnuncioAlumno from './views/AnuncioAlumno/AnuncioAlumno'
+import Fpass from './views/Fpass/Fpass'
+import UpdateTutoria from './views/UpdateTutoria/UpdateTutoria'
 
 
 
@@ -49,6 +51,7 @@ class App extends Component {
           
         })
     })
+    this.SetLog(0)
   }
   IniciarSesion(correo, tipo){
     // fetch("../server/initSession.php")
@@ -91,14 +94,17 @@ class App extends Component {
          logg === 2? <Validacion SetLog={this.SetLog}/> :
          logg === 3? <ChoosePage SetLog={this.SetLog}/> :
          logg === 4? <RegistroPage SetLog={this.SetLog}/> :
-         logg === 5 ? <Guardar_estudiante email={this.state.correo} SetLog={this.SetLog}/> :
-         logg === 6 ? <Editar_Estudiante email={this.state.correo} SetLog={this.SetLog}/> :
-         logg === 7 ? <Eliminar_estudiante email={this.state.correo} SetLog={this.SetLog}/>: 
-         logg === 8 ? <Vista1 email={this.state.correo} SetLog={this.SetLog}/> :
-         logg === 9 ? <EditarTutor email={this.state.correo} SetLog={this.SetLog}/> :
-         logg === 10 ? <Vista2 email={this.state.correo} SetLog={this.SetLog}/> : 
-         logg === 11 ? <Blog SetLog={this.SetLog}/> : 
-         logg === 12 ? <AnuncioAlumno correo={this.state.correo} SetLog={this.SetLog}/> :null}
+         logg === 5 ? <Guardar_estudiante cerrarSesion={this.cerrarSesion} email={this.state.correo} SetLog={this.SetLog}/> :
+         logg === 6 ? <Editar_Estudiante cerrarSesion={this.cerrarSesion} email={this.state.correo} SetLog={this.SetLog}/> :
+         logg === 7 ? <Eliminar_estudiante cerrarSesion={this.cerrarSesion} email={this.state.correo} SetLog={this.SetLog}/>: 
+         logg === 8 ? <Vista1 cerrarSesion={this.cerrarSesion} email={this.state.correo} SetLog={this.SetLog}/> :
+         logg === 9 ? <EditarTutor cerrarSesion={this.cerrarSesion} email={this.state.correo} SetLog={this.SetLog}/> :
+         logg === 10 ? <Vista2 cerrarSesion={this.cerrarSesion} email={this.state.correo} SetLog={this.SetLog}/> : 
+         logg === 11 ? <Blog cerrarSesion={this.cerrarSesion} SetLog={this.SetLog}/> : 
+         logg === 12 ? <AnuncioAlumno cerrarSesion={this.cerrarSesion} correo={this.state.correo} SetLog={this.SetLog}/> :
+         logg === 13 ? <Fpass cerrarSesion={this.cerrarSesion} correo={this.state.correo} SetLog={this.SetLog}/> :
+         logg === 14 ? <UpdateTutoria cerrarSesion={this.cerrarSesion} correo={this.state.correo} SetLog={this.SetLog}/> 
+         :null}
     
        
       </div>
